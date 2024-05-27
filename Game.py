@@ -32,6 +32,8 @@ class Game:
         else:
             self.handle_winner('Dealer')
     
+    
+
     def handle_winner(self, winner):
         if winner == 'Dealer':
             print('player lost', self.player.get_bet())
@@ -91,14 +93,14 @@ class Game:
                 
 
     def start_game(self):
-        while self.player.bank.value > 0 and self.dealer.bank.value > 0:
+        while self.player.bank.bank_value() > 0 and self.dealer.bank.bank_value() > 0:
             self.new_round()
             print('player cards: ', self.player.hand.print_cards(), 'points: ', self.player.hand.check_points() )
             print('dealer cards: ', self.dealer.hand.print_cards(), 'points: ', self.dealer.hand.check_points())
             self.handle_player_move()
             self.handle_dealer_move()
             self.compare_hands()
-            if self.player.bank.value > 0:
+            if self.player.bank.bank_value() > 0:
                 play_another_round = input('play another round? (y/n)'
                 )
                 if play_another_round == 'n':

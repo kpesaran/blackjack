@@ -20,7 +20,7 @@ class Player(Participant):
 
 
     def make_bet(self, amount_of_bet):
-        if amount_of_bet > self.bank.value:
+        if amount_of_bet > self.bank.bank_value():
             raise Exception('Cannot make bet more than your bank value')
         self.player_bet = amount_of_bet
     
