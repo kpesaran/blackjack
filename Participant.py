@@ -3,7 +3,7 @@ class Participant:
         self.hand = hand
         self.bank = bank
     def print_bank_val(self):
-        print(self.bank.value)
+        print(self.bank.bank_value())
 
 class Dealer(Participant):
 

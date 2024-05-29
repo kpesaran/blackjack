@@ -1,6 +1,3 @@
-
-
-
 class Bank:
     def __init__(self, starting_amount):
         self.__value = starting_amount

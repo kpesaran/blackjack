@@ -1,6 +1,9 @@
 
 
 class Hand:
+    '''
+    hell
+    '''
     def __init__(self,cards):
         self.cards = cards
         # set up points here
@@ -19,13 +22,20 @@ class Hand:
         # else:
         #     print(f"Hand is at {points}, hit or stand?")
         
+        for card in self.cards:
+            if points > 21:
+                if card.val == 'A':
+                   card.point_val = 1
+                   points -= 10
+                
+    
         return points 
     
     def hit(self, card):
         self.cards.append(card)
     
     def print_cards(self):
-        return self.cards
+        return f'{self.cards}'
         
 
     

@@ -49,41 +49,41 @@ class Game:
         else:
             print('tie, bet stays on table')
         
-    # put into player /dealer 
-    def handle_player_move(self):
+    def handle_player_move(self, deck, player_hand):
             # break the logic does a player want another card, and providing the card 
-            while self.player.hand.check_points() < 21:
+            while player_hand.check_points() < 21:
                 answer = input('player do you want another card? (y / n)')
                 if answer == 'y':
-                    self.player.hand.hit(self.deck.deck.pop())
-                    print(f'your hand is at:{self.player.hand.check_points()} ')
+                    player_hand.hit(deck.pop())
+                    print(f'your hand is at: {player_hand.check_points()} ')
+                    print(player_hand.print_cards())
                 else:
                     break
         
-    def handle_dealer_move(self):
+    def handle_dealer_move(self, deck, dealer_hand):
         points = self.dealer.hand.check_points() 
         while points < 17:
-            self.dealer.hand.hit(self.deck.deck.pop())
+            self.dealer.hand.hit(deck.pop())
             
-            points = self.dealer.hand.check_points()
+            points = dealer_hand.check_points()
         
-    def new_round(self):
-        self.deck.create_deck()
-        self.deck.shuffle_deck()
+    def new_round(self, deck):
+        deck.create_deck()
+        deck.shuffle_deck()
 
         number_of_participants = 2
+        # put players in a list with your dealer at the end of the list 
         for i in range(number_of_participants):
             new_hand = []
             for _ in range(2):
-                new_hand.append(self.deck.deck.pop())
-            if i == 0:
-               
+                new_hand.append(deck.pop())
+            if i == 0:  
                 self.dealer.hand.cards = new_hand
             else:
                 if self.player.get_bet() == 0:
                     while True:
                         try:
-                            bet_amount = input(f'how much do you want to bet(you have ${self.player.bank.bank_value()}? ')
+                            bet_amount = input(f'how much do you want to bet(you have ${self.player.bank.bank_value()})? ')
                     
                             self.player.make_bet(int(bet_amount))
                             break
@@ -94,11 +94,11 @@ class Game:
 
     def start_game(self):
         while self.player.bank.bank_value() > 0 and self.dealer.bank.bank_value() > 0:
-            self.new_round()
+            self.new_round(self.deck)
             print('player cards: ', self.player.hand.print_cards(), 'points: ', self.player.hand.check_points() )
             print('dealer cards: ', self.dealer.hand.print_cards(), 'points: ', self.dealer.hand.check_points())
-            self.handle_player_move()
-            self.handle_dealer_move()
+            self.handle_player_move(self.deck, self.player.hand)
+            self.handle_dealer_move(self.deck,self.dealer.hand)
             self.compare_hands()
             if self.player.bank.bank_value() > 0:
                 play_another_round = input('play another round? (y/n)'
