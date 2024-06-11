@@ -1,9 +1,7 @@
 
 
 class Hand:
-    '''
-    hell
-    '''
+ 
     def __init__(self,cards):
         self.cards = cards
         # set up points here
