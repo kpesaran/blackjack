@@ -13,6 +13,8 @@ class Deck:
         for val in self.card_vals:
             for suit in self.suits:
                 self.__deck.append(Card(val,suit))
+    def count_deck(self):
+        return len(self.__deck)
     def pop(self):
         return self.__deck.pop()
 
